@@ -26,19 +26,38 @@ int ** create(size_t rows, size_t cols)
   }
   return mtx;
 }
-
+void construct(int ** mtx, int init, size_t rows, size_t cols)
+{
+  for (size_t i = 0; i < rows; ++i)
+  {
+    for (size_t j = 0; j < rows; ++j)
+    { 
+      mtx[i][j] = init;
+    }
+  }
+}
 int main()
 {
+  size_t r = 0, c = 0;
+  std::cin >> r >> c;
+  if (!std::cin)
+  {
+    std::cerr << "plohoy vvod\n";
+    return 2;
+  } 
   int ** matrix = nullptr;
   try
   {
-    matrix = create(5,5)
+    matrix = create(5,5);
   }  
   catch (const std::bad_alloc & e)
   {
-    std::cer << e.what() << "\n";
+    std::cerr << e.what() << "\n";
     
     return 1;
   }
-  destroy(mtx, 5);
+  std::cout << "created\n";
+  construct(matrix,2, r, c);
+  std::cout << matrix[0][0] << "\n";  
+  destroy(matrix, 5);
 }
