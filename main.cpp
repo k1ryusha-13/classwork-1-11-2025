@@ -112,5 +112,10 @@ int main()
     }
     std::cout << "\n";
   }
+  for (size_t i = 0; i < rows; ++i)
+  {
+    delete[] wow[i];
+  }
+  delete[] wow;
   return 0;
 }
