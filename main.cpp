@@ -1,13 +1,15 @@
 #include <iostream>
+#include <cstddef>
 
 void destroy(int ** mtx, size_t created)
 {
-  for (size_t i = 0; i < created; i++)
+  for (size_t i = 0; i < created; ++i)
   {
     delete[] mtx[i];
   }
   delete[] mtx;   
 }
+
 int ** create(size_t rows, size_t cols)
 {
   int ** mtx = new int * [rows];
@@ -40,7 +42,7 @@ void input(int ** mtx, size_t rows, size_t cols)
   {
     for (size_t i = 0; i < rows; ++i)
     {
-      for(size_t j = 0; j < cols; ++j)
+      for (size_t j = 0; j < cols; ++j)
       {
         std::cin >> mtx[i][j];
       }
@@ -50,8 +52,8 @@ void output(int ** mtx, size_t rows, size_t cols)
   {
     for (size_t i = 0; i < rows; ++i)
     {
-      //std::cput << mtx[i][0];
-      for(size_t j = 1; j < cols; ++j)
+      std::cout << mtx[i][0];
+      for (size_t j = 1; j < cols; ++j)
       {
         std::cout << ' ' << mtx[i][j];
       }
@@ -63,24 +65,24 @@ int main()
 {
   size_t r = 0, c = 0;
   std::cin >> r >> c;
-  if (!std::cin)
-  {
-    std::cerr << "plohoy vvod\n";
-    return 2;
-  } 
-  int ** matrix = nullptr;
+  int ** mtx = nullptr;
   try
   {
-    matrix = create(5,5);
+    mtx = create(r,c);
   }  
   catch (const std::bad_alloc & e)
   {
     std::cerr << e.what() << "\n";
-    
     return 1;
   }
   std::cout << "created\n";
-  construct(matrix,2, r, c);
-  std::cout << matrix[0][0] << "\n";  
-  destroy(matrix, 5);
+  construct(mtx, 0, r, c);
+  //std::cout << matrix[0][0] << "\n";  
+  input(mtx, r, c);
+  if (!std::cin)
+  {
+    std::cerr << "plohoy vvod\n";
+  }
+  output(mtx, r, c);
+  destroy(mtx, r);
 }
